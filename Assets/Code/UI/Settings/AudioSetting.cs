@@ -26,7 +26,7 @@ namespace Code.UI
             var volume = Mathf.Log10(sliderSound.value) * 20;
             mixer.SetFloat("SoundVolume", volume);
             //data.SoundVolume = sliderSound.value;
-            AudioCenter.Instance.PlaySound(EAudioClips.Button);
+            //AudioCenter.Instance.PlaySound(EAudioClips.Button);
         }
 
         public void ChangeMusicVolume()

@@ -1,39 +1,93 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 namespace Code
 {
-    public class AudioCenter : MonoBehaviour
+    public interface IAudioCenter
     {
-        [SerializeField] private AudioDB audioDB;  
-        [Header("Audio Players")]
-        [SerializeField] private AudioPlayer sfxPlayer;
-        [SerializeField] private AudioPlayer musicPlayer;
-        [SerializeField] private AudioPlayer environmentPlayer;
-        [SerializeField] private AudioPlayer catSounds;
+        public void PlaySound(EAudioClips clipName);
+    }
+    public class AudioCenter : IAudioCenter
+    {
+        private readonly AudioMixer mixer;
+        private readonly AudioDB audioDB;
+        private readonly AudioSourceFabric fabric;
+        private readonly Stack<AudioSource> audioPlayers;
 
-        public static AudioCenter Instance;
-
-        private void Awake()
+        public AudioCenter(AudioSourceFabric fabric, AudioDB audioDB)
         {
-            Instance = this;
-        }
-
-        private void Start()
-        {
-           // catSounds.PlayClip(audioDB.GetClip(EAudioClips.CatPure));
-            environmentPlayer.PlayClip(audioDB.GetClip(EAudioClips.Environment));
-            musicPlayer.PlayClip(audioDB.GetClip(EAudioClips.MainTheme));
+            this.fabric = fabric;
+            this.audioDB = audioDB;
+            audioPlayers = new Stack<AudioSource>();
         }
 
         public void PlaySound(EAudioClips clipName)
         {
-            sfxPlayer.PlayClip(audioDB.GetClip(clipName));
+            var source = FindAudioPlayer();
+            source.clip = audioDB.GetClip(clipName);
+            source.Play();
         }
-        
-        public void PlaySound2(EAudioClips clipName)
+
+        public void PlaySound(EAudioClips clipName, EAudioMixerGroupNames groupName)
         {
-            catSounds.PlayClip(audioDB.GetClip(clipName));
+            var source = FindAudioPlayer();
+            source.clip = audioDB.GetClip(clipName);
+            source.outputAudioMixerGroup = GetMixerGroup(groupName);
+            source.Play();
+
         }
+
+        public void PlaySound(EAudioClips clipName, SourceConfig config)
+        {
+            var source = FindAudioPlayer();
+            SetConfig(source, config);
+            source.clip = audioDB.GetClip(clipName);
+            source.Play();
+        }
+
+        private void SetConfig(AudioSource source, SourceConfig config)
+        {
+            source.loop = config.Loop;
+            source.pitch += Random.Range(-config.PitchRange, config.PitchRange);
+            source.outputAudioMixerGroup = GetMixerGroup(config.MixerGroup);
+        }
+
+        private AudioSource FindAudioPlayer()
+        {
+            if (audioPlayers.Count == 0)
+            {
+               return CreateNewSource();
+            }
+
+            foreach (var audioPlayer in audioPlayers)
+            {
+                if (!audioPlayer.isPlaying)
+                    return audioPlayer;
+            }
+
+            return CreateNewSource();
+        }
+
+        private AudioSource CreateNewSource()
+        {
+            var newSource = fabric.CreateSource();
+            audioPlayers.Push(newSource);
+            return newSource;
+        }
+
+        private AudioMixerGroup GetMixerGroup(EAudioMixerGroupNames name)
+        {
+            return mixer.FindMatchingGroups(name.ToString())[0];
+        }
+    }
+
+    public enum EAudioMixerGroupNames
+    {
+        Master,
+        Music,
+        Sound
     }
 }

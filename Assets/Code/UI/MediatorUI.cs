@@ -13,16 +13,18 @@ namespace Code.UI
     {
         private readonly Dictionary<EWindows,Window> windows;
         private readonly IPlayerInput playerInput;
+        private readonly AudioCenter audioCenter;
 
         private Window previousWindow;
         private Window currentWindow;
 
         private bool isPause;
 
-        public MediatorUI(IEnumerable<Window> windows, IPlayerInput playerInput)
+        public MediatorUI(IEnumerable<Window> windows, IPlayerInput playerInput, AudioCenter audioCenter)
         {
             this.windows = new Dictionary<EWindows, Window>();
             this.playerInput = playerInput;
+            this.audioCenter = audioCenter;
             
             
             foreach (var window in windows)
@@ -33,7 +35,7 @@ namespace Code.UI
         }
         public void Notify(EContext ev)
         {
-            AudioCenter.Instance.PlaySound(EAudioClips.Button);
+            audioCenter.PlaySound(EAudioClips.Button);
             switch (ev)
             {
                 case EContext.NewGame:
