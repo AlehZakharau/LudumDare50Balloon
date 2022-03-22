@@ -4,7 +4,9 @@ namespace Code.UI
 {
     public class Window : MonoBehaviour
     {
+        [SerializeField] private EWindows windowType;
         [SerializeField] private Canvas windowCanvas;
+        public EWindows WindowType => windowType;
 
         public void OpenWindow()
         {

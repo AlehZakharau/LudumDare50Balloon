@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,27 +9,28 @@ namespace Code.UI
     {
         public void Notify(EContext ev);
     }
-    public class NavigationUIMediator : MonoBehaviour
+    public class MediatorUI : IMediator
     {
-        [SerializeField] private Window mainWindow;
-        [SerializeField] private Window pauseWindow;
-        [SerializeField] private Window creditsWindow;
-        [SerializeField] private Window settingsWindow;
-        [SerializeField] private Window tutorialWindow;
-
-        [SerializeField] private Texture2D cursor;
+        private readonly Dictionary<EWindows,Window> windows;
+        private readonly IPlayerInput playerInput;
 
         private Window previousWindow;
         private Window currentWindow;
 
         private bool isPause;
 
-        private void Awake()
+        public MediatorUI(IEnumerable<Window> windows, IPlayerInput playerInput)
         {
-            currentWindow = mainWindow;
-            Cursor.SetCursor(cursor, Vector2.zero, CursorMode.Auto);
+            this.windows = new Dictionary<EWindows, Window>();
+            this.playerInput = playerInput;
+            
+            
+            foreach (var window in windows)
+            {
+                this.windows.Add(window.WindowType, window);
+            }
+            currentWindow = this.windows[EWindows.MainMenu];
         }
-
         public void Notify(EContext ev)
         {
             AudioCenter.Instance.PlaySound(EAudioClips.Button);
@@ -39,38 +41,33 @@ namespace Code.UI
                     break;
                 case EContext.Continue:
                     currentWindow.CloseWindow();
-                    OpenWindow(mainWindow);
+                    OpenWindow(windows[EWindows.MainMenu]);
                     isPause = false;
-                    //PlayerInput.Instance.Actions.Payer.Enable();
                     break;
                 case EContext.Pause:
                     if (!isPause)
                     {
-                        OpenWindow(pauseWindow);
+                        OpenWindow(windows[EWindows.Pause]);
                         isPause = true;
-                        //PlayerInput.Instance.Actions.Payer.Disable();
                     }
                     else
                     {
-                        OpenWindow(mainWindow);
+                        OpenWindow(windows[EWindows.MainMenu]);
                         isPause = false;
-                        //PlayerInput.Instance.Actions.Payer.Enable();
                     }
-
                     break;
                 case EContext.Setting:
-                    OpenWindow(settingsWindow);
+                    OpenWindow(windows[EWindows.Settings]);
                     break;
                 case EContext.Credits:
-                    OpenWindow(creditsWindow);
+                    OpenWindow(windows[EWindows.Credits]);
                     break;
                 case EContext.Back:
                     OpenWindow(previousWindow);
                     break;
                 case EContext.Tutorial:
-                    OpenWindow(tutorialWindow);
+                    OpenWindow(windows[EWindows.Tutorial]);
                     isPause = true;
-                    //PlayerInput.Instance.Actions.Payer.Enable();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ev), ev, null);
@@ -94,6 +91,15 @@ namespace Code.UI
         Setting,
         Back,
         Credits,
+        Tutorial
+    }
+
+    public enum EWindows
+    {
+        MainMenu,
+        Settings,
+        Credits,
+        Pause,
         Tutorial
     }
 }

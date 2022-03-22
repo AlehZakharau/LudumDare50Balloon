@@ -5,7 +5,7 @@ namespace Code.UI
 {
     public class MenuInput : MonoBehaviour
     {
-        [SerializeField] private NavigationUIMediator navigation;
+        [SerializeField] private MediatorUI mediator;
         private Actions actions;
         private void Start()
         {

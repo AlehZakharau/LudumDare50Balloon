@@ -8,7 +8,7 @@ namespace Code.UI
 {
     public class TutorialService : MonoBehaviour
     {
-        [SerializeField] private NavigationUIMediator navigation;
+        [SerializeField] private MediatorUI mediator;
         [SerializeField] private Toggle tutorialCheck;
         [SerializeField] private TMP_Text supportText;
         //[SerializeField] private MilkCollector milkCollector;
@@ -23,7 +23,7 @@ namespace Code.UI
             if (!tutorialCheck.isOn)
             {
                 isTutorial = true;
-                navigation.Notify(EContext.Tutorial);
+                mediator.Notify(EContext.Tutorial);
             }
             //milkCollector.onAddingMilk += OnEatingMilk;
         }

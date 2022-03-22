@@ -14,7 +14,7 @@ namespace CommonBaseUI.Settings
         R_1920_1080,
         R_1280_720,
     }
-    public class VideoSettingsController : MonoBehaviour
+    public class VideoSetting : MonoBehaviour
     {
         [SerializeField] private Toggle fullScreen;
         [SerializeField] private TMP_Dropdown resolution;

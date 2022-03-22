@@ -5,10 +5,14 @@ namespace Code.UI
 {
     public class ButtonView : MonoBehaviour
     {
-        [SerializeField] private NavigationUIMediator navigation;
         [SerializeField] private Button button;
         [SerializeField] private EContext context;
 
+        private IMediator mediator;
+        public void Construct(IMediator mediator)
+        {
+            this.mediator = mediator;
+        }
         private void Start()
         {
             button.onClick.AddListener(PushButton);
@@ -16,7 +20,7 @@ namespace Code.UI
 
         private void PushButton()
         {
-            navigation.Notify(context);
+            mediator.Notify(context);
             Debug.Log($"Context: {context}");
         }
     }
