@@ -4,55 +4,31 @@ using UnityEngine;
 
 namespace CommonBaseUI.Data
 {
-    public class DataManager : MonoBehaviour
+    public interface IDataManager
     {
-        [SerializeField] private SaveLoadJsonWindows saveLoadJsonWindows;
-        [SerializeField] private SaveLoadJsonWeb saveLoadJsonWeb;
-        //[SerializeField] private SaveLoadAsyncTest saveLoadAsyncTest;
+        public void Save();
+        public void Load();
+    }
 
-        public static DataManager Instance;
-
-        public event Action GetDataOnSave;
-        public event Action SendDataOnLoad;
+    public class DataManager : IDataManager
+    {
+        private readonly IGameConfig gameConfig;
+        private readonly IJsonUtil jsonUtil;
         
-        private SaveLoadJson saveLoadJson;
-        private ManufactureDataManager manufactureDataManager;
-
-        public GameSettingsDataManager GameSettingsDataManager { get; private set; }
-        public BuildingsData buildingsData;
-
-        private void Awake()
+        public DataManager(IJsonUtil jsonUtil, IGameConfig gameConfig)
         {
-            #if UNITY_WEBGL
-                saveLoadJson = saveLoadJsonWeb;
-            #else
-                saveLoadJson = saveLoadJsonWindows;
-            #endif
-            
-            GameSettingsDataManager = new GameSettingsDataManager(saveLoadJson);
-            buildingsData = new BuildingsData();
-            Instance = this;
+            this.gameConfig = gameConfig;
+            this.jsonUtil = jsonUtil;
         }
-
-        // public void CreateManufactureDataManager(List<IManufactureModel> manufactures)
-        // {
-        //     manufactureDataManager = new ManufactureDataManager(saveLoadJson, manufactures);
-        // }
         
         public void Save()
         {
-            saveLoadJson.SaveToJson("BuildingData", buildingsData);
-            
-            GetDataOnSave?.Invoke();
-            manufactureDataManager.SaveData();
+            jsonUtil.SaveToJson(gameConfig.CommonData.ToString(), gameConfig.CommonData);
         }
 
         public void Load()
         {
-            saveLoadJson.LoadFromJson("BuildingData", buildingsData);
-            
-            manufactureDataManager.LoadData();
-            SendDataOnLoad?.Invoke();
+            jsonUtil.LoadFromJson(gameConfig.CommonData.ToString(), gameConfig.CommonData);
         }
     }
 }

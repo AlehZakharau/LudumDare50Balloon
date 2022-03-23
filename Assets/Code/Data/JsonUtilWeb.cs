@@ -6,9 +6,9 @@ using UnityEngine.Networking;
 
 namespace CommonBaseUI.Data
 {
-    public sealed class SaveLoadJsonWeb : SaveLoadJson
+    public sealed class JsonUtilWeb : MonoBehaviour, IJsonUtil
     {
-        public override void SaveToJson(string name, ISerializable data)
+        public void SaveToJson(string name, ISerializable data)
         {
             StartCoroutine(SaveToJsonWeb(name, data));
         }
@@ -35,7 +35,7 @@ namespace CommonBaseUI.Data
             }
         }
 
-        public override void LoadFromJson(string name, ISerializable data)
+        public void LoadFromJson(string name, ISerializable data)
         {
             StartCoroutine(LoadDataFromJsonWeb(name, data));
         }

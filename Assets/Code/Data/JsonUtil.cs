@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace CommonBaseUI.Data
 {
-    public sealed class SaveLoadJsonWindows : SaveLoadJson
+    public sealed class JsonUtil : IJsonUtil
     {
-        public override void SaveToJson(string name, ISerializable data)
+        public void SaveToJson(string name, ISerializable data)
         {
             // путь к файлу
             string filePath = Path.Combine(Application.dataPath, name + ".json"); // это то же самое, что Application.dataPath+"\SaveData.json"
@@ -18,7 +18,7 @@ namespace CommonBaseUI.Data
             //Debug.Log("Game saved to: " + filePath);
         }
 
-        public override void LoadFromJson(string name, ISerializable data)
+        public void LoadFromJson(string name, ISerializable data)
         {
             //string filePath = Path.Combine(Application.dataPath, "SaveData.json");
             string filePath = Path.Combine(Application.dataPath, name + ".json");

@@ -5,13 +5,13 @@ namespace CommonBaseUI.Data
 {
     public class GameSettingsDataManager
     {
-        public GameSettingsDataManager(SaveLoadJson saveLoadJson)
+        public GameSettingsDataManager(IJsonUtil jsonUtil)
         {
-            this.saveLoadJson = saveLoadJson;
+            this.jsonUtil = jsonUtil;
         }
 
         private readonly GameSettingsData gameSettingsData = new GameSettingsData();
-        private readonly SaveLoadJson saveLoadJson;
+        private readonly IJsonUtil jsonUtil;
 
         private const string Filename = "GameSettings";
 
@@ -23,7 +23,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.soundVolume = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -33,7 +33,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.musicVolume = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -43,7 +43,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.voiceVolume = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -53,7 +53,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.fullScreen = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -63,7 +63,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.resWidth = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -73,7 +73,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.resHeight = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 
@@ -83,7 +83,7 @@ namespace CommonBaseUI.Data
             set
             {
                 gameSettingsData.resolution = value;
-                saveLoadJson.SaveToJson(Filename, gameSettingsData);
+                jsonUtil.SaveToJson(Filename, gameSettingsData);
             }
         }
 

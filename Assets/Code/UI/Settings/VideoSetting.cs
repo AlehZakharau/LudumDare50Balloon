@@ -3,6 +3,7 @@ using CommonBaseUI.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace CommonBaseUI.Settings
 {
@@ -19,11 +20,16 @@ namespace CommonBaseUI.Settings
         [SerializeField] private Toggle fullScreen;
         [SerializeField] private TMP_Dropdown resolution;
         
-        private GameSettingsDataManager gameSettingsDataManager;
+        private GameSettingsDataManager data;
+        
+        [Inject]
+        public void Construct(GameSettingsDataManager data)
+        {
+            this.data = data;
+        }
         private void Start()
         {
-            gameSettingsDataManager = DataManager.Instance.GameSettingsDataManager;
-            resolution.value = (int)gameSettingsDataManager.Resolution;
+            resolution.value = (int)data.Resolution;
         }
 
         public void ChangeScreenResolution()
@@ -31,14 +37,14 @@ namespace CommonBaseUI.Settings
             var res = GetScreenParameters((ScreenResolutions16and9)resolution.value);
             
             Screen.SetResolution(res.Width, res.Height, Screen.fullScreen);
-            gameSettingsDataManager.ResWidth = res.Width;
-            gameSettingsDataManager.ResHeight = res.Width;
+            data.ResWidth = res.Width;
+            data.ResHeight = res.Width;
         }
 
         public void ChangeScreenMode()
         {
             Screen.fullScreen = fullScreen.isOn;
-            gameSettingsDataManager.FullScreen = fullScreen.isOn;
+            data.FullScreen = fullScreen.isOn;
         }
         
         private ScreenResolution GetScreenParameters(ScreenResolutions16and9 screenResolution)
