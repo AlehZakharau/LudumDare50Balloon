@@ -23,6 +23,7 @@ namespace Code
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<PlayerMovement>();
+            builder.RegisterEntryPoint<GasTank>().As<IGasTank>();
             builder.Register<IPlayerInput, PlayerInput>(Lifetime.Singleton);
             builder.Register<IMediator, MediatorUI>(Lifetime.Singleton);
 

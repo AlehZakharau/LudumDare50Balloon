@@ -7,16 +7,18 @@ namespace Code.GamePlay
     public class PlayerMovement : ITickable, IFixedTickable, IStartable
     {
         private readonly IPlayerInput playerInput;
+        private readonly IGasTank gasTank;
         private readonly PlayerView playerView;
         private readonly Rigidbody rig;
 
         private bool accelerate;
         private bool planning;
 
-        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView)
+        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank)
         {
             this.playerInput = playerInput;
             this.playerView = playerView;
+            this.gasTank = gasTank;
             rig = playerView.Rig;
         }
 
@@ -69,6 +71,7 @@ namespace Code.GamePlay
 
         private void Push(InputAction.CallbackContext obj)
         {
+            if(!gasTank.HasGas) return;
             if (obj.started)
             {
                 accelerate = true;
