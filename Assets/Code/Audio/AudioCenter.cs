@@ -15,13 +15,13 @@ namespace Code
         private readonly AudioMixer mixer;
         private readonly AudioDB audioDB;
         private readonly AudioSourceFabric fabric;
-        private readonly Stack<AudioSource> audioPlayers;
+        private readonly Stack<AudioSource> soundPlayers;
 
         public AudioCenter(AudioSourceFabric fabric, AudioDB audioDB)
         {
             this.fabric = fabric;
             this.audioDB = audioDB;
-            audioPlayers = new Stack<AudioSource>();
+            soundPlayers = new Stack<AudioSource>();
         }
 
         public void PlaySound(EAudioClips clipName)
@@ -57,12 +57,12 @@ namespace Code
 
         private AudioSource FindAudioPlayer()
         {
-            if (audioPlayers.Count == 0)
+            if (soundPlayers.Count == 0)
             {
                return CreateNewSource();
             }
 
-            foreach (var audioPlayer in audioPlayers)
+            foreach (var audioPlayer in soundPlayers)
             {
                 if (!audioPlayer.isPlaying)
                     return audioPlayer;
@@ -74,7 +74,7 @@ namespace Code
         private AudioSource CreateNewSource()
         {
             var newSource = fabric.CreateSource();
-            audioPlayers.Push(newSource);
+            soundPlayers.Push(newSource);
             return newSource;
         }
 

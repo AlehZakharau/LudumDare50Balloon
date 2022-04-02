@@ -6,9 +6,18 @@
             "id": "d20eb55e-883e-43ea-b1dd-d164b0acdb49",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Push",
                     "type": "Button",
                     "id": "f9825a87-95b5-4d5d-a049-45eea345a909",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Down",
+                    "type": "Button",
+                    "id": "f4c285e7-b155-445c-b510-859f1f47c62a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -19,11 +28,66 @@
                 {
                     "name": "",
                     "id": "7eb4360a-205e-4059-abe9-19e9208e1414",
-                    "path": "",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f12fa40a-7df6-49dd-a38e-db152e7eaaa1",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a711c5b7-3be7-413c-9efc-30bdd1fd6a3a",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Push",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40d55db9-b3be-466e-959c-20643246ee9c",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2670221f-e9cb-4808-a764-f8194eb5fa1b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "077e7b76-5918-4f9f-88bb-9d45a5c87286",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

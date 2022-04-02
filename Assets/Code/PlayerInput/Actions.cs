@@ -30,9 +30,18 @@ namespace Code
             ""id"": ""d20eb55e-883e-43ea-b1dd-d164b0acdb49"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Push"",
                     ""type"": ""Button"",
                     ""id"": ""f9825a87-95b5-4d5d-a049-45eea345a909"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4c285e7-b155-445c-b510-859f1f47c62a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -43,11 +52,66 @@ namespace Code
                 {
                     ""name"": """",
                     ""id"": ""7eb4360a-205e-4059-abe9-19e9208e1414"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f12fa40a-7df6-49dd-a38e-db152e7eaaa1"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a711c5b7-3be7-413c-9efc-30bdd1fd6a3a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Push"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40d55db9-b3be-466e-959c-20643246ee9c"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2670221f-e9cb-4808-a764-f8194eb5fa1b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""077e7b76-5918-4f9f-88bb-9d45a5c87286"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -86,7 +150,8 @@ namespace Code
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_Newaction = m_Player.FindAction("New action", throwIfNotFound: true);
+            m_Player_Push = m_Player.FindAction("Push", throwIfNotFound: true);
+            m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
             m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
@@ -149,12 +214,14 @@ namespace Code
         // Player
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_Newaction;
+        private readonly InputAction m_Player_Push;
+        private readonly InputAction m_Player_Down;
         public struct PlayerActions
         {
             private @Actions m_Wrapper;
             public PlayerActions(@Actions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Newaction => m_Wrapper.m_Player_Newaction;
+            public InputAction @Push => m_Wrapper.m_Player_Push;
+            public InputAction @Down => m_Wrapper.m_Player_Down;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -164,16 +231,22 @@ namespace Code
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
-                    @Newaction.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNewaction;
-                    @Newaction.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNewaction;
-                    @Newaction.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnNewaction;
+                    @Push.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPush;
+                    @Push.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPush;
+                    @Push.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPush;
+                    @Down.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
+                    @Down.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
+                    @Down.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDown;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Newaction.started += instance.OnNewaction;
-                    @Newaction.performed += instance.OnNewaction;
-                    @Newaction.canceled += instance.OnNewaction;
+                    @Push.started += instance.OnPush;
+                    @Push.performed += instance.OnPush;
+                    @Push.canceled += instance.OnPush;
+                    @Down.started += instance.OnDown;
+                    @Down.performed += instance.OnDown;
+                    @Down.canceled += instance.OnDown;
                 }
             }
         }
@@ -213,7 +286,8 @@ namespace Code
         public MenuActions @Menu => new MenuActions(this);
         public interface IPlayerActions
         {
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnPush(InputAction.CallbackContext context);
+            void OnDown(InputAction.CallbackContext context);
         }
         public interface IMenuActions
         {

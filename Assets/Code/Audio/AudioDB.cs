@@ -7,6 +7,7 @@ namespace Code
     public class AudioDB : ScriptableObject
     {
         [SerializeField] private AudioBase[] audioBases;
+        [SerializeField] private AudioPlaylist[] audioPlaylists;
 
 
         public AudioClip GetClip(EAudioClips name)
@@ -20,6 +21,19 @@ namespace Code
             }
             throw new Exception($"doesn't find Clip with name: {name}");
         }
+        
+        public AudioClip[] GetPlaylist(EAudioPlaylist name)
+        {
+            foreach (var audioPlaylist in audioPlaylists)
+            {
+                if (audioPlaylist.name == name)
+                {
+                    return audioPlaylist.clips;
+                }
+            }
+            throw new Exception($"doesn't find Clip with name: {name}");
+        }
+
     }
 
     [Serializable]
@@ -27,6 +41,19 @@ namespace Code
     {
         public EAudioClips name;
         public AudioClip clip;
+    }
+
+    [Serializable]
+    public class AudioPlaylist
+    {
+        public EAudioPlaylist name;
+        public AudioClip[] clips;
+    }
+
+    public enum EAudioPlaylist
+    {
+        Music,
+        Environment
     }
 
     public enum EAudioClips
