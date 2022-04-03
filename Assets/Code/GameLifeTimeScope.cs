@@ -24,6 +24,8 @@ namespace Code
         {
             builder.RegisterEntryPoint<PlayerMovement>();
             builder.RegisterEntryPoint<GasTank>().As<IGasTank>();
+            builder.Register<IAbilityStore, AbilityStore>(Lifetime.Singleton);
+            builder.Register<IPlayerLife, PlayerLife>(Lifetime.Singleton);
             builder.Register<IPlayerInput, PlayerInput>(Lifetime.Singleton);
             builder.Register<IMediator, MediatorUI>(Lifetime.Singleton);
 

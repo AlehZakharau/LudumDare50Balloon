@@ -11,7 +11,6 @@ namespace Code.GamePlay
         
         [Header("Gravity scaler")]
         public float planningScaler = 0.1f;
-        public float accelerateScaler = 0.4f;
         public float fallingGravityScaler = 0.3f;
         
         [Header("Components")]

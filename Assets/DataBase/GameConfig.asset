@@ -12,3 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a1ecc6f2ea46eca5d9aaa699002945, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  abilityData:
+    acceleration:
+    - -0.1
+    - -0.15
+    - -0.2
+    - -0.25
+    gasMileage:
+    - 10
+    - 5
+    - 2.5
+    - 1
+    life: 00000000010000000200000002000000

@@ -14,15 +14,18 @@ namespace Code.GamePlay
     public class GasTank : ITickable, IGasTank, IStartable
     {
         private readonly IPlayerInput playerInput;
+        private readonly IAbilityStore abilityStore;
+        
         private float tankCapacity = 100;
         public bool HasGas => tankCapacity > 0;
         public event Action<float> OnAcceleration; 
 
         private bool accelerate;
 
-        public GasTank(IPlayerInput playerInput)
+        public GasTank(IPlayerInput playerInput, IAbilityStore abilityStore)
         {
             this.playerInput = playerInput;
+            this.abilityStore = abilityStore;
         }
 
         public void Start()
@@ -36,7 +39,7 @@ namespace Code.GamePlay
             if (accelerate)
             {
                 OnAcceleration?.Invoke(tankCapacity);
-                tankCapacity -= Time.deltaTime;
+                tankCapacity -= abilityStore.GasMileage * Time.deltaTime;
             }
         }
 

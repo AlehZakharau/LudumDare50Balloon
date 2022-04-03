@@ -8,17 +8,19 @@ namespace Code.GamePlay
     {
         private readonly IPlayerInput playerInput;
         private readonly IGasTank gasTank;
+        private readonly IAbilityStore abilityStore;
         private readonly PlayerView playerView;
         private readonly Rigidbody rig;
 
         private bool accelerate;
         private bool planning;
 
-        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank)
+        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank, IAbilityStore abilityStore)
         {
             this.playerInput = playerInput;
             this.playerView = playerView;
             this.gasTank = gasTank;
+            this.abilityStore = abilityStore;
             rig = playerView.Rig;
         }
 
@@ -44,7 +46,7 @@ namespace Code.GamePlay
         {
             if (accelerate)
             {
-                rig.AddForce(Physics.gravity * (playerView.accelerateScaler) * rig.mass);
+                rig.AddForce(Physics.gravity * (abilityStore.Acceleration) * rig.mass);
             }
             else if(planning)
             {
