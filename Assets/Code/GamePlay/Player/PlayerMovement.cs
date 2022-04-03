@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Code.UI.Windows;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer.Unity;
 
@@ -9,16 +10,19 @@ namespace Code.GamePlay
         private readonly IPlayerInput playerInput;
         private readonly IGasTank gasTank;
         private readonly IAbilityStore abilityStore;
+        private readonly IStage stage;
         private readonly PlayerView playerView;
         private readonly Rigidbody rig;
 
         private bool accelerate;
         private bool planning;
 
-        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank, IAbilityStore abilityStore)
+        public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank, 
+            IAbilityStore abilityStore, IStage stage)
         {
             this.playerInput = playerInput;
             this.playerView = playerView;
+            this.stage = stage;
             this.gasTank = gasTank;
             this.abilityStore = abilityStore;
             rig = playerView.Rig;
@@ -44,6 +48,11 @@ namespace Code.GamePlay
 
         public void FixedTick()
         {
+            if (stage.CurrentStage == EStage.Pause)
+            {
+                rig.velocity = Vector3.zero;
+                return;
+            }
             if (accelerate)
             {
                 rig.AddForce(Physics.gravity * (abilityStore.Acceleration) * rig.mass);
@@ -56,7 +65,6 @@ namespace Code.GamePlay
             {
                 rig.AddForce(Physics.gravity * (playerView.fallingGravityScaler) * rig.mass);
             }
-            
         }
 
         private void Down(InputAction.CallbackContext obj)

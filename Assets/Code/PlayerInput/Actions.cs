@@ -122,9 +122,54 @@ namespace Code
             ""id"": ""724b9f69-e9d5-4eaf-bff2-31e50f962553"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""CloseTutorial"",
                     ""type"": ""Button"",
                     ""id"": ""0b0cb1d1-f2d0-4cc0-a5c2-c1b95cc8b1d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad11a625-31e1-4b8f-aee0-ed4b1badb9c4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Store"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed16c4c6-28be-4897-b5ef-1f73c4f0d51b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Credits"",
+                    ""type"": ""Button"",
+                    ""id"": ""671ab980-da59-492c-91a0-6a988777d942"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AudioSettings"",
+                    ""type"": ""Button"",
+                    ""id"": ""334f421b-1604-4a38-846d-43418a7c8b4e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae1330c0-29ca-4b12-83bd-c5b07ebd11f7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -135,11 +180,77 @@ namespace Code
                 {
                     ""name"": """",
                     ""id"": ""1d34258e-535d-42ed-861f-2aa7d8b09481"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""CloseTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""77822a2e-3698-410c-b2cc-892fdc492cdc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6c7d5bd-7be9-4df2-b615-813afd594f56"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7835941f-8450-4112-8996-73a853efe091"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Store"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5005fe2e-73cc-45ab-b3cb-9e3b3e7618bb"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Credits"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eee6850b-d2b7-419f-a6be-3fb3838e1b5e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AudioSettings"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95927e88-7c87-476a-a457-3ebe20a5a209"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -154,7 +265,12 @@ namespace Code
             m_Player_Down = m_Player.FindAction("Down", throwIfNotFound: true);
             // Menu
             m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
-            m_Menu_Newaction = m_Menu.FindAction("New action", throwIfNotFound: true);
+            m_Menu_CloseTutorial = m_Menu.FindAction("CloseTutorial", throwIfNotFound: true);
+            m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
+            m_Menu_Store = m_Menu.FindAction("Store", throwIfNotFound: true);
+            m_Menu_Credits = m_Menu.FindAction("Credits", throwIfNotFound: true);
+            m_Menu_AudioSettings = m_Menu.FindAction("AudioSettings", throwIfNotFound: true);
+            m_Menu_Back = m_Menu.FindAction("Back", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -255,12 +371,22 @@ namespace Code
         // Menu
         private readonly InputActionMap m_Menu;
         private IMenuActions m_MenuActionsCallbackInterface;
-        private readonly InputAction m_Menu_Newaction;
+        private readonly InputAction m_Menu_CloseTutorial;
+        private readonly InputAction m_Menu_Pause;
+        private readonly InputAction m_Menu_Store;
+        private readonly InputAction m_Menu_Credits;
+        private readonly InputAction m_Menu_AudioSettings;
+        private readonly InputAction m_Menu_Back;
         public struct MenuActions
         {
             private @Actions m_Wrapper;
             public MenuActions(@Actions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Newaction => m_Wrapper.m_Menu_Newaction;
+            public InputAction @CloseTutorial => m_Wrapper.m_Menu_CloseTutorial;
+            public InputAction @Pause => m_Wrapper.m_Menu_Pause;
+            public InputAction @Store => m_Wrapper.m_Menu_Store;
+            public InputAction @Credits => m_Wrapper.m_Menu_Credits;
+            public InputAction @AudioSettings => m_Wrapper.m_Menu_AudioSettings;
+            public InputAction @Back => m_Wrapper.m_Menu_Back;
             public InputActionMap Get() { return m_Wrapper.m_Menu; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -270,16 +396,46 @@ namespace Code
             {
                 if (m_Wrapper.m_MenuActionsCallbackInterface != null)
                 {
-                    @Newaction.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
-                    @Newaction.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
-                    @Newaction.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNewaction;
+                    @CloseTutorial.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnCloseTutorial;
+                    @CloseTutorial.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnCloseTutorial;
+                    @CloseTutorial.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnCloseTutorial;
+                    @Pause.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                    @Pause.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                    @Pause.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                    @Store.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnStore;
+                    @Store.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnStore;
+                    @Store.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnStore;
+                    @Credits.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnCredits;
+                    @Credits.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnCredits;
+                    @Credits.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnCredits;
+                    @AudioSettings.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnAudioSettings;
+                    @AudioSettings.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnAudioSettings;
+                    @AudioSettings.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnAudioSettings;
+                    @Back.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                    @Back.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
+                    @Back.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnBack;
                 }
                 m_Wrapper.m_MenuActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Newaction.started += instance.OnNewaction;
-                    @Newaction.performed += instance.OnNewaction;
-                    @Newaction.canceled += instance.OnNewaction;
+                    @CloseTutorial.started += instance.OnCloseTutorial;
+                    @CloseTutorial.performed += instance.OnCloseTutorial;
+                    @CloseTutorial.canceled += instance.OnCloseTutorial;
+                    @Pause.started += instance.OnPause;
+                    @Pause.performed += instance.OnPause;
+                    @Pause.canceled += instance.OnPause;
+                    @Store.started += instance.OnStore;
+                    @Store.performed += instance.OnStore;
+                    @Store.canceled += instance.OnStore;
+                    @Credits.started += instance.OnCredits;
+                    @Credits.performed += instance.OnCredits;
+                    @Credits.canceled += instance.OnCredits;
+                    @AudioSettings.started += instance.OnAudioSettings;
+                    @AudioSettings.performed += instance.OnAudioSettings;
+                    @AudioSettings.canceled += instance.OnAudioSettings;
+                    @Back.started += instance.OnBack;
+                    @Back.performed += instance.OnBack;
+                    @Back.canceled += instance.OnBack;
                 }
             }
         }
@@ -291,7 +447,12 @@ namespace Code
         }
         public interface IMenuActions
         {
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnCloseTutorial(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
+            void OnStore(InputAction.CallbackContext context);
+            void OnCredits(InputAction.CallbackContext context);
+            void OnAudioSettings(InputAction.CallbackContext context);
+            void OnBack(InputAction.CallbackContext context);
         }
     }
 }

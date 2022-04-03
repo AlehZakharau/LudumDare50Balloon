@@ -1,5 +1,6 @@
 ﻿using Code.GamePlay;
 using Code.UI;
+using Code.UI.Windows;
 using CommonBaseUI.Data;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -17,20 +18,17 @@ namespace Code
         [SerializeField] private AudioDB audioDB;
         [SerializeField] private AudioMixer mixer;
         [SerializeField] private AudioSourceFabric audioFabric;
-        [Header("UI")]
-        [SerializeField] private ButtonView[] buttons;
-        [SerializeField] private Window[] windows;
+        [Header("UI")] [SerializeField] private MediatorUI mediatorUI;
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<PlayerMovement>();
             builder.RegisterEntryPoint<GasTank>().As<IGasTank>();
+            builder.Register<IStage, Stage>(Lifetime.Singleton);
             builder.Register<IAbilityStore, AbilityStore>(Lifetime.Singleton);
             builder.Register<IPlayerLife, PlayerLife>(Lifetime.Singleton);
             builder.Register<IPlayerInput, PlayerInput>(Lifetime.Singleton);
-            builder.Register<IMediator, MediatorUI>(Lifetime.Singleton);
 
             RegisterDataBase(builder);
-            RegisterUI(builder);
             RegisterAudio(builder);
             RegisterComponent(builder);
             
@@ -62,22 +60,10 @@ namespace Code
         {
             builder.Register<IAudioCenter, AudioCenter>(Lifetime.Singleton);
             builder.RegisterComponent(audioFabric).As<IAudioSourceFabric>();
+            builder.RegisterComponent(mediatorUI).As<IMediator>();
             builder.RegisterInstance(audioDB);
             //builder.RegisterComponent(mixer); 
             builder.Register<AudioMixer>(Lifetime.Singleton);
-        }
-
-        private void RegisterUI(IContainerBuilder builder)
-        {
-            foreach (var button in buttons)
-            {
-                builder.RegisterComponent(button);
-            }
-
-            foreach (var window in windows)
-            {
-                builder.RegisterComponent(window);
-            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace Code.UI
 {
@@ -9,6 +10,8 @@ namespace Code.UI
         [SerializeField] private EContext context;
 
         private IMediator mediator;
+        
+        [Inject]
         public void Construct(IMediator mediator)
         {
             this.mediator = mediator;
