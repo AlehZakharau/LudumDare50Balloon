@@ -41,6 +41,10 @@ namespace Code.GamePlay
             this.playerLife = playerLife;
             this.audioCenter = audioCenter;
             this.coinView = coinView;
+
+#if UNITY_EDITOR
+            Coins = 20000;
+#endif
         }
 
 
