@@ -38,6 +38,7 @@ ExportedObj/
 *.sln
 *.suo
 *.tmp
+*.c4d
 *.user
 *.userprefs
 *.pidb
