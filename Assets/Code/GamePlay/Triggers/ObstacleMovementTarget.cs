@@ -20,7 +20,7 @@ namespace Code.GamePlay.Triggers
 
         private void Start()
         {
-            endPosition = end.position;
+            endPosition = new Vector3(transform.position.x, transform.position.y, -40);
         }
 
         private void Update()

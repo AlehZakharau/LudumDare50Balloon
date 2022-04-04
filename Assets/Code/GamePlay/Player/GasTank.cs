@@ -8,7 +8,8 @@ namespace Code.GamePlay
     public interface IGasTank
     {
         public bool HasGas { get; }
-        public event Action<float> OnAcceleration; 
+        public event Action<float> OnAcceleration;
+        public void AddGas();
     }
     
     public class GasTank : ITickable, IGasTank, IStartable
@@ -18,7 +19,11 @@ namespace Code.GamePlay
         
         private float tankCapacity = 100;
         public bool HasGas => tankCapacity > 0;
-        public event Action<float> OnAcceleration; 
+        public event Action<float> OnAcceleration;
+        public void AddGas()
+        {
+            tankCapacity = 100;
+        }
 
         private bool accelerate;
 
