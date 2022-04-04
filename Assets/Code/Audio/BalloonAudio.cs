@@ -11,7 +11,6 @@ namespace Code.Audio
     {
         private readonly IAudioCenter audioCenter;
         private readonly IPlayerInput playerInput;
-        private readonly IGameConfig gameConfig;
         private readonly IAudioSourceFabric fabric;
         private readonly AudioDB audioDB;
 
@@ -24,7 +23,6 @@ namespace Code.Audio
         {
             this.audioCenter = audioCenter;
             this.playerInput = playerInput;
-            this.gameConfig = gameConfig;
             this.fabric = fabric;
             this.audioDB = audioDB; 
 
@@ -44,6 +42,7 @@ namespace Code.Audio
             balloonSource.clip = audioDB.GetClip(EAudioClips.NormalBurst);
             balloonSource.Play();
             balloonSource.volume = normalVolume;
+            balloonSource.outputAudioMixerGroup = audioDB.GetMixerGroup(EAudioMixerGroupNames.Balloon);
         }
 
         private void Down(InputAction.CallbackContext obj)

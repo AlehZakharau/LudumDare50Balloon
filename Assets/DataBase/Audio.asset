@@ -38,3 +38,11 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: 169bec8a608a7db42b83861686883e64, type: 3}
     - {fileID: 8300000, guid: 8e861a6240d0ad54ea7250703286584e, type: 3}
+  audioData:
+    groups:
+    - {fileID: 24300002, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}
+    - {fileID: -9115761895656282872, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}
+    - {fileID: -5649756881114820796, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}
+    - {fileID: 8980148825808742413, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}
+    - {fileID: 5012197242911490706, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}
+    - {fileID: -6139041813691025071, guid: 4a78867a1d4d58545b122416f6fc4684, type: 2}

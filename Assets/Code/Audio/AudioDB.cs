@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Code
 {
@@ -8,7 +9,7 @@ namespace Code
     {
         [SerializeField] private AudioBase[] audioBases;
         [SerializeField] private AudioPlaylist[] audioPlaylists;
-
+        [SerializeField] private AudioData audioData;
 
         public AudioClip GetClip(EAudioClips name)
         {
@@ -33,6 +34,18 @@ namespace Code
             }
             throw new Exception($"doesn't find Clip with name: {name}");
         }
+        
+        public AudioMixerGroup GetMixerGroup(EAudioMixerGroupNames name)
+        {
+            foreach (var group in audioData.groups)
+            {
+                if (group.name == name.ToString())
+                {
+                    return group;
+                }
+            }
+            throw new Exception($"There is no such Audio Mixer group {name}");
+        }
 
     }
 
@@ -48,6 +61,12 @@ namespace Code
     {
         public EAudioPlaylist name;
         public AudioClip[] clips;
+    }
+    
+    [Serializable]
+    public class AudioData
+    {
+        public AudioMixerGroup[] groups;
     }
 
     public enum EAudioPlaylist

@@ -14,7 +14,6 @@ namespace Code
     }
     public class AudioCenter : IAudioCenter
     {
-        private readonly IGameConfig gameConfig;
         private readonly AudioDB audioDB;
         private readonly AudioSourceFabric fabric;
         private readonly Stack<AudioSource> soundPlayers;
@@ -23,7 +22,6 @@ namespace Code
         {
             this.fabric = fabric;
             this.audioDB = audioDB;
-            this.gameConfig = gameConfig;
             soundPlayers = new Stack<AudioSource>();
         }
 
@@ -38,7 +36,7 @@ namespace Code
         {
             var source = FindAudioPlayer();
             source.clip = audioDB.GetClip(clipName);
-            source.outputAudioMixerGroup = GetMixerGroup(groupName);
+            source.outputAudioMixerGroup = audioDB.GetMixerGroup(groupName);
             source.Play();
 
         }
@@ -55,7 +53,7 @@ namespace Code
         {
             source.loop = config.Loop;
             source.pitch += Random.Range(-config.PitchRange, config.PitchRange);
-            source.outputAudioMixerGroup = GetMixerGroup(config.MixerGroup);
+            source.outputAudioMixerGroup = audioDB.GetMixerGroup(config.MixerGroup);
         }
 
         private AudioSource FindAudioPlayer()
@@ -81,23 +79,16 @@ namespace Code
             return newSource;
         }
 
-        private AudioMixerGroup GetMixerGroup(EAudioMixerGroupNames name)
-        {
-            foreach (var group in gameConfig.AudioData.groups)
-            {
-                if (group.name == name.ToString())
-                {
-                    return group;
-                }
-            }
-            throw new Exception($"There is no such Audio Mixer group {name}");
-        }
+        
     }
 
     public enum EAudioMixerGroupNames
     {
         Master,
         Music,
-        Sound
+        Sound,
+        Environment,
+        Balloon,
+        Wind,
     }
 }
