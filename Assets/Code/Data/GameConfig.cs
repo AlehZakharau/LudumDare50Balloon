@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using Code.GamePlay;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace CommonBaseUI.Data
 {
@@ -9,14 +10,18 @@ namespace CommonBaseUI.Data
     {
         public CommonData CommonData { get;}
         public AbilityData AbilityData { get; }
+
+        public AudioData AudioData { get; }
     }
     [CreateAssetMenu(fileName = "GameConfig", menuName = "DataBase/GameConfig", order = 0)]
     public class GameConfig : ScriptableObject, IGameConfig
     {
         [SerializeField] private CommonData commonData;
         [SerializeField] private AbilityData abilityData;
+        [SerializeField] private AudioData audioData;
         public CommonData CommonData => commonData;
         public AbilityData AbilityData => abilityData;
+        public AudioData AudioData => audioData;
     }
 
     [Serializable]
@@ -42,5 +47,11 @@ namespace CommonBaseUI.Data
         {
             
         }
+    }
+
+    [Serializable]
+    public class AudioData
+    {
+        public AudioMixerGroup[] groups;
     }
 }

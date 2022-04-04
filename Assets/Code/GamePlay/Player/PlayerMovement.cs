@@ -11,19 +11,25 @@ namespace Code.GamePlay
         private readonly IGasTank gasTank;
         private readonly IAbilityStore abilityStore;
         private readonly IStage stage;
+        private readonly IAudioCenter audioCenter;
         private readonly PlayerView playerView;
         private readonly Rigidbody rig;
 
         private bool accelerate;
         private bool planning;
+        private bool playOnce;
+
+        private float audioTimer;
+        private float audioTimerMax = 3f;
 
         public PlayerMovement(IPlayerInput playerInput, PlayerView playerView, IGasTank gasTank, 
-            IAbilityStore abilityStore, IStage stage)
+            IAbilityStore abilityStore, IStage stage, IAudioCenter audioCenter)
         {
             this.playerInput = playerInput;
             this.playerView = playerView;
             this.stage = stage;
             this.gasTank = gasTank;
+            this.audioCenter = audioCenter;
             this.abilityStore = abilityStore;
             rig = playerView.Rig;
         }
@@ -39,9 +45,11 @@ namespace Code.GamePlay
 
         public void Tick()
         {
+            CountAudioPlay();
             if (IsGrounded(playerView.groundChecker[0]))
             {
                 //stop moving
+                audioCenter.PlaySound(EAudioClips.Landing);
                 playerInput.Actions.Player.Disable();
             }
         }
@@ -84,6 +92,11 @@ namespace Code.GamePlay
             if(!gasTank.HasGas) return;
             if (obj.started)
             {
+                if (!playOnce)
+                {
+                    audioCenter.PlaySound(EAudioClips.AddBurst);
+                    playOnce = true;
+                }
                 accelerate = true;
             }
             else if (obj.canceled)
@@ -95,6 +108,16 @@ namespace Code.GamePlay
         private bool IsGrounded(Transform checker)
         {
             return Physics.CheckSphere(checker.position, playerView.groundCheckerRadius, playerView.groundLayer);
+        }
+
+        private void CountAudioPlay()
+        {
+            audioTimer += Time.deltaTime;
+            if (audioTimer > audioTimerMax)
+            {
+                audioTimer = 0f;
+                playOnce = true;
+            }
         }
     }
 }

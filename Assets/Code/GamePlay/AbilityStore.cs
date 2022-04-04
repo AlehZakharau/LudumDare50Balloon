@@ -16,6 +16,7 @@ namespace Code.GamePlay
     {
         private readonly IGameConfig gameConfig;
         private readonly IPlayerLife playerLife;
+        private readonly IAudioCenter audioCenter;
 
         private int accelerationLevel;
         private int gasMileageLevel;
@@ -23,15 +24,17 @@ namespace Code.GamePlay
 
         public int Coins { get; set; }
 
-        public AbilityStore(IGameConfig gameConfig,IPlayerLife playerLife)
+        public AbilityStore(IGameConfig gameConfig,IPlayerLife playerLife, IAudioCenter audioCenter)
         {
             this.gameConfig = gameConfig;
             this.playerLife = playerLife;
+            this.audioCenter = audioCenter;
         }
 
 
         public void UpgradeAbility(EAbility ability)
         {
+            audioCenter.PlaySound(EAudioClips.Upgrade);
             switch (ability)
             {
                 case EAbility.Acceleration:

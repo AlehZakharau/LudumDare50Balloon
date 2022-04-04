@@ -60,14 +60,14 @@ namespace Code
     {
         MainTheme,
         Environment,
-        CatScare,
-        CatMeow,
-        CatPure,
-        Jump,
+        Wind,
         Button,
-        Splash,
-        Fireworks,
-        CatMeow2,
-        CatEating
+        Landing,
+        Crash,
+        Upgrade,
+        AddBurst,
+        NormalBurst,
+        LowBurst
+       
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CommonBaseUI.Data;
 using UnityEngine;
 using UnityEngine.Audio;
 using Random = UnityEngine.Random;
@@ -9,18 +10,20 @@ namespace Code
     public interface IAudioCenter
     {
         public void PlaySound(EAudioClips clipName);
+        public void PlaySound(EAudioClips clipName, SourceConfig config);
     }
     public class AudioCenter : IAudioCenter
     {
-        private readonly AudioMixer mixer;
+        private readonly IGameConfig gameConfig;
         private readonly AudioDB audioDB;
         private readonly AudioSourceFabric fabric;
         private readonly Stack<AudioSource> soundPlayers;
 
-        public AudioCenter(AudioSourceFabric fabric, AudioDB audioDB)
+        public AudioCenter(AudioSourceFabric fabric, AudioDB audioDB, IGameConfig gameConfig)
         {
             this.fabric = fabric;
             this.audioDB = audioDB;
+            this.gameConfig = gameConfig;
             soundPlayers = new Stack<AudioSource>();
         }
 
@@ -80,7 +83,14 @@ namespace Code
 
         private AudioMixerGroup GetMixerGroup(EAudioMixerGroupNames name)
         {
-            return mixer.FindMatchingGroups(name.ToString())[0];
+            foreach (var group in gameConfig.AudioData.groups)
+            {
+                if (group.name == name.ToString())
+                {
+                    return group;
+                }
+            }
+            throw new Exception($"There is no such Audio Mixer group {name}");
         }
     }
 

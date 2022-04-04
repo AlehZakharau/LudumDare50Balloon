@@ -1,4 +1,5 @@
-﻿using Code.GamePlay;
+﻿using Code.Audio;
+using Code.GamePlay;
 using Code.UI;
 using Code.UI.Windows;
 using CommonBaseUI.Data;
@@ -23,6 +24,7 @@ namespace Code
         {
             builder.RegisterEntryPoint<PlayerMovement>();
             builder.RegisterEntryPoint<GasTank>().As<IGasTank>();
+            builder.RegisterEntryPoint<BalloonAudio>();
             builder.Register<IStage, Stage>(Lifetime.Singleton);
             builder.Register<IAbilityStore, AbilityStore>(Lifetime.Singleton);
             builder.Register<IPlayerLife, PlayerLife>(Lifetime.Singleton);

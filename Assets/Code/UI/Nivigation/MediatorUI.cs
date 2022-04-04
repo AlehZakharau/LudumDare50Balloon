@@ -43,7 +43,7 @@ namespace Code.UI
 
         public void Notify(EContext ev)
         {
-            //audioCenter.PlaySound(EAudioClips.Button);
+            audioCenter.PlaySound(EAudioClips.Button);
             switch (ev)
             {
                 case EContext.NewGame:

@@ -9,6 +9,11 @@ namespace Code.GamePlay
     }
     public class PlayerLife : IPlayerLife
     {
+        private readonly IAudioCenter audioCenter;
+        public PlayerLife(IAudioCenter audioCenter)
+        {
+            this.audioCenter = audioCenter;
+        }
         private int lifeCount;
         private int LifeCount
         {
@@ -19,6 +24,7 @@ namespace Code.GamePlay
                 if (lifeCount < 0)
                 {
                     // end
+                    audioCenter.PlaySound(EAudioClips.Crash);
                 }
                 else
                 {
@@ -32,6 +38,8 @@ namespace Code.GamePlay
         public void ChangeLife(int amount)
         {
             LifeCount -= amount;
+            if(amount > 0)
+                audioCenter.PlaySound(EAudioClips.Landing);
         }
     }
 }
