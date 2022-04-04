@@ -12,6 +12,7 @@ namespace Code
 {
     public class GameLifeTimeScope : LifetimeScope
     {
+        [SerializeField] private PlatformView platformView;
         [SerializeField] private PlayerView playerView;
         [Header("Data Base")]
         [SerializeField] private GameConfig gameConfig;
@@ -25,6 +26,7 @@ namespace Code
             builder.RegisterEntryPoint<PlayerMovement>();
             builder.RegisterEntryPoint<GasTank>().As<IGasTank>();
             builder.RegisterEntryPoint<BalloonAudio>();
+            builder.RegisterEntryPoint<Platform>();
             builder.Register<IStage, Stage>(Lifetime.Singleton);
             builder.Register<IAbilityStore, AbilityStore>(Lifetime.Singleton);
             builder.Register<IPlayerLife, PlayerLife>(Lifetime.Singleton);
@@ -40,6 +42,7 @@ namespace Code
         private void RegisterComponent(IContainerBuilder builder)
         {
             builder.RegisterComponent(playerView);
+            builder.RegisterComponent(platformView);
         }
 
         private void RegisterDataBase(IContainerBuilder builder)

@@ -49,7 +49,11 @@ namespace Code.GamePlay
             if (IsGrounded(playerView.groundChecker[0]))
             {
                 //stop moving
-                audioCenter.PlaySound(EAudioClips.Landing);
+                if (!playOnce)
+                {
+                    audioCenter.PlaySound(EAudioClips.Landing);
+                    playOnce = true;
+                }
                 playerInput.Actions.Player.Disable();
             }
         }
@@ -89,14 +93,14 @@ namespace Code.GamePlay
 
         private void Push(InputAction.CallbackContext obj)
         {
-            if(!gasTank.HasGas) return;
+            if (!gasTank.HasGas)
+            {
+                accelerate = false;
+                return;
+            }
             if (obj.started)
             {
-                if (!playOnce)
-                {
-                    audioCenter.PlaySound(EAudioClips.AddBurst);
-                    playOnce = true;
-                }
+                audioCenter.PlaySound(EAudioClips.AddBurst);
                 accelerate = true;
             }
             else if (obj.canceled)

@@ -1,5 +1,7 @@
 ﻿using System;
+using Code.UI.Windows;
 using UnityEngine;
+using VContainer;
 
 namespace Code.GamePlay.Triggers
 {
@@ -12,6 +14,13 @@ namespace Code.GamePlay.Triggers
         private Vector3 startPosition;
         private Vector3 endPosition;
 
+        private IStage stage;
+        [Inject]
+        public void Construct(IStage stage)
+        {
+            this.stage = stage;
+        }
+
         private void Start()
         {
             startPosition = start.position;
@@ -21,8 +30,9 @@ namespace Code.GamePlay.Triggers
 
         private void Update()
         {
+            if(stage.CurrentStage == EStage.Pause) return;
             var timeScale = 1 / (Vector3.Distance(startPosition, endPosition) / speed);
-            transform.position = Vector3.Lerp(startPosition, endPosition, Mathf.Abs(Time.time * timeScale % 2 - 1));
+            transform.localPosition = Vector3.Lerp(startPosition, endPosition, Mathf.Abs(Time.time * timeScale % 2 - 1));
         }
     }
 }
