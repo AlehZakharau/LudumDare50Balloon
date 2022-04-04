@@ -13,6 +13,28 @@ MonoBehaviour:
   m_Name: Audio
   m_EditorClassIdentifier: 
   audioBases:
-  - name: 6
+  - name: 0
     clip: {fileID: 0}
-  audioPlaylists: []
+  - name: 1
+    clip: {fileID: 8300000, guid: 36f98bfb1618af546bc32e777c12bb38, type: 3}
+  - name: 2
+    clip: {fileID: 8300000, guid: c878e549bdcd4d24882e27a23f1179ca, type: 3}
+  - name: 3
+    clip: {fileID: 8300000, guid: fd537648a52bf0b4ab3c88ba51795721, type: 3}
+  - name: 7
+    clip: {fileID: 8300000, guid: fa3ef1f61a007eb47885c27a8955ffef, type: 3}
+  - name: 9
+    clip: {fileID: 8300000, guid: f1e407c3ee5bc2e4eaa339c158149189, type: 3}
+  - name: 8
+    clip: {fileID: 8300000, guid: 6734a3fd2d28ed44abf4f56099b631c0, type: 3}
+  - name: 4
+    clip: {fileID: 8300000, guid: 12e47c7ec808d64448e672202131c75c, type: 3}
+  - name: 5
+    clip: {fileID: 8300000, guid: 12e47c7ec808d64448e672202131c75c, type: 3}
+  - name: 6
+    clip: {fileID: 8300000, guid: da43b4677bd10404f8794d71849883a9, type: 3}
+  audioPlaylists:
+  - name: 0
+    clips:
+    - {fileID: 8300000, guid: 169bec8a608a7db42b83861686883e64, type: 3}
+    - {fileID: 8300000, guid: 8e861a6240d0ad54ea7250703286584e, type: 3}
