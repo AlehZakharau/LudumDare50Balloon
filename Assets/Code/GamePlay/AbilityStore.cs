@@ -17,18 +17,30 @@ namespace Code.GamePlay
         private readonly IGameConfig gameConfig;
         private readonly IPlayerLife playerLife;
         private readonly IAudioCenter audioCenter;
+        private readonly CoinView coinView;
 
         private int accelerationLevel;
         private int gasMileageLevel;
         private int lifeLevel;
 
-        public int Coins { get; set; }
+        private int coins;
+        public int Coins
+        {
+            get => coins;
+            set
+            {
+                coins = value;
+                coinView.coinText.text = coins.ToString();
+                coinView.coinText_1.text = coins.ToString();
+            }
+        }
 
-        public AbilityStore(IGameConfig gameConfig,IPlayerLife playerLife, IAudioCenter audioCenter)
+        public AbilityStore(IGameConfig gameConfig,IPlayerLife playerLife, IAudioCenter audioCenter, CoinView coinView)
         {
             this.gameConfig = gameConfig;
             this.playerLife = playerLife;
             this.audioCenter = audioCenter;
+            this.coinView = coinView;
         }
 
 

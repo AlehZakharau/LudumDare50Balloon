@@ -85,6 +85,9 @@ namespace Code.UI
                     OpenWindow(windows[EWindows.Store]);
                     stage.ChangeStage(EStage.Pause);
                     break;
+                case EContext.End:
+                    OpenWindow(windows[EWindows.End]);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(ev), ev, null);
             }
@@ -127,7 +130,8 @@ namespace Code.UI
         Store,
         Back,
         Credits,
-        Tutorial
+        Tutorial,
+        End
     }
 
     public enum EWindows
@@ -137,6 +141,7 @@ namespace Code.UI
         Store,
         Credits,
         Pause,
-        Tutorial
+        Tutorial,
+        End
     }
 }

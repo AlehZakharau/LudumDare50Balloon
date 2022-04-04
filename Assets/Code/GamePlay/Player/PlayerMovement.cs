@@ -15,6 +15,8 @@ namespace Code.GamePlay
         private readonly PlayerView playerView;
         private readonly Rigidbody rig;
 
+        private ParticleSystem currentFire;
+        
         private bool accelerate;
         private bool planning;
         private bool playOnce;
@@ -41,6 +43,9 @@ namespace Code.GamePlay
             
             playerInput.Actions.Player.Push.started += Push;
             playerInput.Actions.Player.Push.canceled += Push;
+
+            currentFire = playerView.fire[1];
+            currentFire.Play();
         }
 
         public void Tick()
@@ -52,6 +57,7 @@ namespace Code.GamePlay
                 if (!playOnce)
                 {
                     audioCenter.PlaySound(EAudioClips.Landing);
+                    stage.PlayerStage = EStage.Landing;
                     playOnce = true;
                 }
                 playerInput.Actions.Player.Disable();
@@ -84,10 +90,12 @@ namespace Code.GamePlay
             if (obj.started)
             {
                 planning = true;
+                ChangeFire(playerView.fire[0]);
             }
             else if(obj.canceled)
             {
                 planning = false;
+                ChangeFire(playerView.fire[1]);
             }
         }
 
@@ -95,16 +103,19 @@ namespace Code.GamePlay
         {
             if (!gasTank.HasGas)
             {
+                ChangeFire(playerView.fire[0]);
                 accelerate = false;
                 return;
             }
             if (obj.started)
             {
+                ChangeFire(playerView.fire[2]);
                 audioCenter.PlaySound(EAudioClips.AddBurst);
                 accelerate = true;
             }
             else if (obj.canceled)
             {
+                ChangeFire(playerView.fire[1]);
                 accelerate = false;
             }
         }
@@ -122,6 +133,13 @@ namespace Code.GamePlay
                 audioTimer = 0f;
                 playOnce = true;
             }
+        }
+
+        private void ChangeFire(ParticleSystem particleSystem)
+        {
+            currentFire.Stop();
+            currentFire = particleSystem;
+            currentFire.Play();
         }
     }
 }

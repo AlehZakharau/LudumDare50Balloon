@@ -1,6 +1,7 @@
 ﻿using System;
 using Code.GamePlay;
 using CommonBaseUI.Data;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -20,6 +21,10 @@ namespace Code.UI.Store
         public Image[] accelerationIm;
         public Image[] gasMileageIm;
         public Image[] lifeIm;
+
+        public TMP_Text accelerationPriceText;
+        public TMP_Text gasMileagePriceText;
+        public TMP_Text lifePriceText;
 
         private int accelerationLevel;
         private int gasMileageLevel;
@@ -43,7 +48,11 @@ namespace Code.UI.Store
         {
             accelerationBt.onClick.AddListener(AddAccelerate);
             gasMileageBt.onClick.AddListener(AddGasMileage);
-            lifeBt.onClick.AddListener(AddLife); 
+            lifeBt.onClick.AddListener(AddLife);
+
+            lifePriceText.text = gameConfig.AbilityData.lifePrice[LifeLevel].ToString();
+            gasMileagePriceText.text = gameConfig.AbilityData.gasMileagePrice[gasMileageLevel].ToString();
+            accelerationPriceText.text = gameConfig.AbilityData.accelerationPrice[accelerationLevel].ToString();
         }
 
         private void AddLife()
@@ -52,6 +61,7 @@ namespace Code.UI.Store
             abilityStore.UpgradeAbility(EAbility.Life);
             lifeLevel++;
             lifeIm[LifeLevel].enabled = true;
+            lifePriceText.text = gameConfig.AbilityData.lifePrice[LifeLevel].ToString();
         }
 
         private void AddGasMileage()
@@ -60,6 +70,7 @@ namespace Code.UI.Store
             abilityStore.UpgradeAbility(EAbility.GasMileage);
             gasMileageLevel++;
             gasMileageIm[GasMileageLevel].enabled = true;
+            gasMileagePriceText.text = gameConfig.AbilityData.gasMileagePrice[gasMileageLevel].ToString();
         }
 
         private void AddAccelerate()
@@ -68,6 +79,7 @@ namespace Code.UI.Store
             abilityStore.UpgradeAbility(EAbility.Acceleration);
             accelerationLevel++;
             accelerationIm[AccelerationLevel].enabled = true;
+            accelerationPriceText.text = gameConfig.AbilityData.accelerationPrice[accelerationLevel].ToString();
         }
     }
 }

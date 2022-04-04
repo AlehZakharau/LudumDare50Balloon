@@ -7,6 +7,7 @@ namespace Code.UI.Windows
     {
         public void ChangeStage(EStage eStage);
         public EStage CurrentStage { get; }
+        public EStage PlayerStage { get; set; }
     }
     public class Stage : IStage
     {
@@ -15,6 +16,7 @@ namespace Code.UI.Windows
         public Stage(IPlayerInput playerInput)
         {
             this.playerInput = playerInput;
+            PlayerStage = EStage.Game;
         }
         public void ChangeStage(EStage eStage)
         {
@@ -34,11 +36,13 @@ namespace Code.UI.Windows
         }
 
         public EStage CurrentStage { get; private set; }
+        public EStage PlayerStage { get; set; }
     }
 
     public enum EStage
     {
         Pause,
         Game,
+        Landing,
     }
 }

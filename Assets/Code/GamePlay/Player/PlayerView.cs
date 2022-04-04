@@ -16,5 +16,10 @@ namespace Code.GamePlay
         [Header("Components")]
         public Transform Transform;
         public Rigidbody Rig;
+
+        [Header("VFX")]
+        public ParticleSystem[] fire;
+        public ParticleSystem crash;
+
     }
 }

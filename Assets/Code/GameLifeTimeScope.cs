@@ -12,8 +12,11 @@ namespace Code
 {
     public class GameLifeTimeScope : LifetimeScope
     {
+        [Header("Mono")]
         [SerializeField] private PlatformView platformView;
         [SerializeField] private PlayerView playerView;
+        [SerializeField] private DistanceView distanceView;
+        [SerializeField] private CoinView coinView;
         [Header("Data Base")]
         [SerializeField] private GameConfig gameConfig;
         [Header("Audio")]
@@ -43,6 +46,8 @@ namespace Code
         {
             builder.RegisterComponent(playerView);
             builder.RegisterComponent(platformView);
+            builder.RegisterComponent(distanceView);
+            builder.RegisterComponent(coinView);
         }
 
         private void RegisterDataBase(IContainerBuilder builder)

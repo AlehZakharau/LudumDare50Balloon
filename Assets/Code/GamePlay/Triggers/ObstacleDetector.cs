@@ -13,6 +13,7 @@ namespace Code.GamePlay.Triggers
         {
             this.playerLife = playerLife;
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer($"Player"))

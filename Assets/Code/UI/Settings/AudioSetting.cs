@@ -24,8 +24,8 @@ namespace Code.UI
 
         private void Start()
         {
-            sliderSound.value = data.SoundVolume;
-            sliderMusic.value = data.MusicVolume;
+            // sliderSound.value = data.SoundVolume;
+            // sliderMusic.value = data.MusicVolume;
             mixer.SetFloat("SoundVolume", Mathf.Log10(sliderSound.value) * 20);
             mixer.SetFloat("MusicVolume", Mathf.Log10(sliderMusic.value) * 20);
             sliderSound.onValueChanged.AddListener(delegate { ChangeSoundVolume(); });

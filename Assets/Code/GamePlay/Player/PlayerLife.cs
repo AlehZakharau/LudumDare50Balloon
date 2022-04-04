@@ -1,4 +1,7 @@
 ﻿using System;
+using Code.UI;
+using Code.UI.Windows;
+using UnityEngine;
 
 namespace Code.GamePlay
 {
@@ -10,9 +13,15 @@ namespace Code.GamePlay
     public class PlayerLife : IPlayerLife
     {
         private readonly IAudioCenter audioCenter;
-        public PlayerLife(IAudioCenter audioCenter)
+        private readonly IMediator mediator;
+        private readonly IPlayerInput playerInput;
+        private readonly IStage stage;
+            public PlayerLife(IAudioCenter audioCenter, IMediator mediator, IPlayerInput playerInput, IStage stage)
         {
             this.audioCenter = audioCenter;
+            this.mediator = mediator;
+            this.playerInput = playerInput;
+            this.stage = stage;
         }
         private int lifeCount;
         private int LifeCount
@@ -20,10 +29,13 @@ namespace Code.GamePlay
             get => lifeCount;
             set
             {
+                if(stage.PlayerStage == EStage.Landing) return;
                 lifeCount = value;
                 if (lifeCount < 0)
                 {
-                    // end
+                    stage.PlayerStage = EStage.Landing;
+                    playerInput.Actions.Player.Disable();
+                    mediator.Notify(EContext.End);
                     audioCenter.PlaySound(EAudioClips.Crash);
                 }
                 else
@@ -37,6 +49,7 @@ namespace Code.GamePlay
 
         public void ChangeLife(int amount)
         {
+            Debug.Log($"Minus life {amount} {LifeCount}");
             LifeCount -= amount;
             if(amount > 0)
                 audioCenter.PlaySound(EAudioClips.Landing);
